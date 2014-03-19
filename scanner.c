@@ -128,7 +128,9 @@ Token* get_token()
     char ch; //This can be the current character you are examining during scanning.
     char token_string[MAX_TOKEN_STRING_LENGTH]; //Store your token here as you build it.
     char *token_ptr = token_string; //write some code to point this to the beginning of token_string
-    Token* token = (Token *) malloc(sizeof(Token *));  //I am missing the most important variable in the function, what is it?  Hint: what should I return?
+    Token* token = (Token *) malloc(sizeof(Token));  //I am missing the most important variable in the function, what is it?  Hint: what should I return?
+    static char arr[256];
+    ch = get_char(arr);
     
     //1.  Skip past all of the blanks
     //2.  figure out which case you are dealing with LETTER, DIGIT, QUOTE, EOF, or special, by examining ch
@@ -136,7 +138,9 @@ Token* get_token()
     if (char_table[ch] = DIGIT){
     	token -> literal_type = INTEGER_LIT;
     	token -> token_code = NUMBER;
-    	token -> content = &(get_number(ch));
+    	get_number(token_string, token_ptr);
+    	token -> content = (char *) malloc(sizeof(char) * strlen(token_string));
+    	memcpy(token -> content, token_string);
     }
     elseif (char_table[ch] = QUOTE){
     	token -> literal_type = STRING_LIT;
@@ -162,9 +166,10 @@ static char get_char()
     static char* ch;
     
     
-    if(*(ch) == '\0'){
+    if(*ch == '\0'){
     	get_source_line(srcname);
     }
+    ch++;
     /*
      Write some code to set the character ch to the next character in the buffer
      */
