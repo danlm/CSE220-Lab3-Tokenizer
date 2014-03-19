@@ -60,23 +60,5 @@ static void print_page_header(char source_name[], char date[])
 void print_token(Token *token)
 {
     //Missing code goes here
-	char* status;
-	if (token -> literal_type == 0)
-	{
-		status = token -> content;
-	}
-	else{
-		switch(token -> token_code){
-			case REAL_LIT:
-				status = "<IDENTIFIER>";
-				break;
-			case INTEGER_LIT:
-				status = "<NUMBER>";
-				break;
-			case STRING_LIT:
-				status = "<STRING>";
-				break;
-		}
-	}
-     printf("\n>> %s\t%s", status, token -> content);// Need to print token type and the actual token itself
+     printf("\n>> %s\t%s", SYMBOL_STRINGS[token -> token_code], token -> content);// Need to print token type and the actual token itself
 }
