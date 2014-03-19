@@ -177,7 +177,7 @@ static char* get_word(char* ch)
      Write some code to Extract the word
      */
     char* word;
-	sscanf(ch, "\s", word);
+    sscanf(ch, "\s", word);
 	
     //Downshift the word, to make it lower case
     downshift_word(word);
@@ -193,8 +193,8 @@ static int get_number(char* ch)
      Write some code to Extract the number and convert it to a literal number.
      */
     int x;
-	sscanf(s, "\d", &x);
-	return x;	
+    sscanf(s, "\d", &x);
+    return x;	
 }
 static char* get_string(char* ch)
 {
@@ -226,13 +226,13 @@ static BOOLEAN is_reserved_word(char* word)
     BOOLEAN isReserved = FALSE;
     for(i=0;i<8;i++)
     {
-		for(j=0;j<9;j++)
-		{
-			char* reserve = downshift_word(rwtable[i][j] -> string);	
-			if(strcmp(reserve, word) == 0){
-				isReserved = TRUE;
-			}
+	for(j=0;j<9;j++)
+	{
+		char* reserve = downshift_word(rwtable[i][j] -> string);	
+		if(strcmp(reserve, word) == 0){
+			isReserved = TRUE;
 		}
+	}
     }
     return isReserved;
 }
