@@ -4,7 +4,8 @@
 //
 //  Created by Bryce Holton.
 //  Copyright (c) 2014 Bryce Holton. All rights reserved.
-//
+//  
+//  Student Name: Daniel Martin
 
 #include <stdio.h>
 #include "common.h"
@@ -39,12 +40,16 @@ void add_token_to_list(Token *list, Token *new_token)
 {
     // Add new_token to the list knowing that list is a linked list.
     list -> next = new_token;
-   // Set new_token -> next?
+    list = list -> next;
 }
 void quit_scanner(FILE *src_file, Token *list)
 {
     //write code to free all of the memory for the token list
-    
+    Token *temp;
+    while (list != null){
+		temp = list -> next;
+		free(temp);
+	}
     fclose(src_file);
 }
 FILE *init_lister(const char *name, char source_file_name[], char dte[])

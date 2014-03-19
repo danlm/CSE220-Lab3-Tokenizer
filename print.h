@@ -4,7 +4,8 @@
 //
 //  Created by Bryce Holton.
 //  Copyright (c) 2014 Bryce Holton. All rights reserved.
-//
+//  
+//  Student Name: Daniel Martin
 
 #ifndef Lab3_print_h
 #define Lab3_print_h

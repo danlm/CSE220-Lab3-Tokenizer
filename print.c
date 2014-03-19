@@ -4,7 +4,8 @@
 //
 //  Created by Bryce Holton.
 //  Copyright (c) 2014 Bryce Holton. All rights reserved.
-//
+//  
+//  Student Name: Daniel Martin
 
 #include "print.h"
 
@@ -59,5 +60,23 @@ static void print_page_header(char source_name[], char date[])
 void print_token(Token *token)
 {
     //Missing code goes here
-     printf(">>\t%s\t%s", token -> token_code, );// Need to print token type and the actual token itself
+	char* status;
+	if (token -> literal_type == 0)
+	{
+		status = token -> content;
+	}
+	else{
+		switch(token -> token_code){
+			case REAL_LIT:
+				status = "<IDENTIFIER>";
+				break;
+			case INTEGER_LIT:
+				status = "<NUMBER>";
+				break;
+			case STRING_LIT:
+				status = "<STRING>";
+				break;
+		}
+	}
+     printf("\n>> %s\t%s", status, token -> content);// Need to print token type and the actual token itself
 }

@@ -4,7 +4,8 @@
 //
 //  Created by Bryce Holton.
 //  Copyright (c) 2014 Bryce Holton. All rights reserved.
-//
+//  
+//  Student Name: Daniel Martin
 
 #ifndef CSE220_project2_common_h
 #define CSE220_project2_common_h
@@ -63,6 +64,7 @@ typedef struct Token
     //Missing code goes here
     LiteralType literal_type;
     TokenCode token_code;
+    char* content;
     struct Token *next;
 }
 Token;
