@@ -1,10 +1,10 @@
 #!/bin/bash
 # File: Makefile
-# Daniel Martin
+# Daniel Martin and Joshua Mazion
 
 
 lister: main.o print.o scanner.o
-	gcc main.o print.o scanner.o -o tokenizer
+	gcc main.o print.o scanner.o -o lister
 	rm *.o
 
 main.o: main.c scanner.h print.h common.h
