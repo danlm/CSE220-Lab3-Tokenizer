@@ -128,9 +128,6 @@ Token* get_token()
     	token -> literal_type = REAL_LIT;
     	//if 
     }
-    else if (char_table[ch] = EOF){
-    	token = null;
-    }
     return token; //What should be returned here?
 }
 static char get_char()
@@ -171,9 +168,10 @@ static char* skip_comment(char* ch) //Acts only on a single line
      to the first non blank character.  Watch out for the EOF character.
      */
     ch = strchr(ch, '}');
-    if (!ch){
-	ch = '\n';
-    {
+    if (*(ch+1) != '\n'){
+	
+	skipblanks(ch);
+    }
     return ch;
 }
 static char* get_word(char* ch)
