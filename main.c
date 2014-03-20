@@ -26,12 +26,15 @@ int main(int argc, const char * argv[])
     init_scanner(source_file, source_name, date);
     
     do
-    {
-        token = get_token();
+    {        
+		token = get_token();
+		if (!token_list){
+			token_list = token;
+		}
         add_token_to_list(token_list, token);
         print_token(token);
     }
-    while (get_token() != null);//What is the sentinal value that ends this loop?
+    while (get_token() != null);//What is the sentinel value that ends this loop?
     
     quit_scanner(source_file, token_list);
     return 0;
@@ -39,8 +42,11 @@ int main(int argc, const char * argv[])
 void add_token_to_list(Token *list, Token *new_token)
 {
     // Add new_token to the list knowing that list is a linked list.
-    list -> next = new_token;
-    list = list -> next;
+	Token* next = token_list;
+	while(next -> next){
+		next = next -> next;
+	}
+    next -> next = new_token;
 }
 void quit_scanner(FILE *src_file, Token *list)
 {

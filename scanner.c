@@ -71,39 +71,16 @@ void init_scanner(FILE *source_file, char source_name[], char date[])
      *******************/
     for(i=0;i<256;i++)
     {
-	if (i<32){
-		char_table[i] = EOF_CODE;
+		if((i >= '0') && (i <= '9')){
+			char_code[i] = DIGIT;
+		{
+		else if(((i >= 'a') && (i <= 'z')) || ((i >= 'A') && (i <= 'Z'))){
+			char_code[i] = LETTER;
+		{
+		else{
+			char_code[i] = SPECIAL;
+		} 
 	}
-	elseif (i<48){
-		char_table[i] = SPECIAL;
-	}
-	elseif (i<58){
-		char_table[i] = DIGIT;
-	}
-	elseif (i<65){
-		char_table[i] = SPECIAL;
-	}
-	elseif (i<91){
-		char_table[i] = LETTER;
-	}
-	elseif (i<97){
-		char_table[i] = SPECIAL;
-	}
-	elseif (i<123){
-		char_table[i] = LETTER;
-	}
-	elseif (i<145){
-		char_table[i] = SPECIAL;
-	}
-	elseif (i<149){
-		char_table[i] = QUOTE;
-	}
-	else{
-		char_table[i] = SPECIAL;
-	}		
-    }
-    char_table[34] = QUOTE; // Double quotes
-    char_table[39] = QUOTE; // Single quotes
 }
 BOOLEAN get_source_line(char source_buffer[])
 {
@@ -142,16 +119,16 @@ Token* get_token()
     	token -> content = (char *) malloc(sizeof(char) * strlen(token_string));
     	memcpy(token -> content, token_string);
     }
-    elseif (char_table[ch] = QUOTE){
+    else if (char_table[ch] = QUOTE){
     	token -> literal_type = STRING_LIT;
     	token -> token_code = STRING;
     	token -> content = get_string(ch);
     }
-    elseif ((char_table[ch] = LETTER) || (char_table[ch] = SPECIAL)){
+    else if ((char_table[ch] = LETTER) || (char_table[ch] = SPECIAL)){
     	token -> literal_type = REAL_LIT;
     	//if 
     }
-    elseif (char_table[ch] = EOF){
+    else if (char_table[ch] = EOF){
     	token = null;
     }
     return token; //What should be returned here?
