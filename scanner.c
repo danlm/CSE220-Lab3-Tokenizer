@@ -118,6 +118,10 @@ Token* get_token()
 	else if (ch == '{'){
 		ch = *(skip_comment());
 	}
+	if (ch == '\n'){
+		ch = get_char();
+	}
+	
     if (char_table[ch] = DIGIT){
     	token -> literal_type = INTEGER_LIT;
     	token -> token_code = NUMBER;
@@ -125,7 +129,7 @@ Token* get_token()
     	token -> content = (char *) malloc(sizeof(char) * strlen(token_string));
     	memcpy(token -> content, token_string);
     }
-    else if (char_table[ch] = QUOTE){
+    else if (ch == '\''){
     	token -> literal_type = STRING_LIT;
     	token -> token_code = STRING;
     	token -> content = get_string(ch);
@@ -175,11 +179,9 @@ static char* skip_comment() //Acts only on a single line
 	while(*(current_char) != '}'){
 		++current_char;
 	}
-    if (*(current_char+1) == ' '){
-		skip_blanks(++current_char);
-    }
-	else{
-		++current_char;
+	++current_char;
+    if (*(current_char) == ' '){
+		skip_blanks();
     }
     return current_char;
 }
