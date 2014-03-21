@@ -37,6 +37,7 @@ CharCode;
  *********************/
 static FILE *src_file;
 static char src_name[MAX_FILE_NAME_LENGTH];
+static char* current_char; // Not initialized until getToken()
 static char todays_date[DATE_STRING_LENGTH];
 static CharCode char_table[256];  // The character table
 
@@ -106,12 +107,17 @@ Token* get_token()
     char token_string[MAX_TOKEN_STRING_LENGTH]; //Store your token here as you build it.
     char *token_ptr = token_string; //write some code to point this to the beginning of token_string
     Token* token = (Token *) malloc(sizeof(Token));  //I am missing the most important variable in the function, what is it?  Hint: what should I return?
-    static char arr[256];
-    ch = get_char(arr);
+    ch = get_char();
     
     //1.  Skip past all of the blanks
     //2.  figure out which case you are dealing with LETTER, DIGIT, QUOTE, EOF, or special, by examining ch
     //3.  Call the appropriate function to deal with the cases in 2.
+	if (ch == ' '){
+		ch = *(skip_blanks());
+	}
+	else if (ch == '{'){
+		ch = *(skip_comment());
+	}
     if (char_table[ch] = DIGIT){
     	token -> literal_type = INTEGER_LIT;
     	token -> token_code = NUMBER;
@@ -137,42 +143,45 @@ static char get_char()
      we should call get source line.  If at the EOF (end of file) we should
      set the character ch to EOF and leave the function.
      */
-    static char* ch;
-    
-    
-    if(*ch == '\0'){
-    	get_source_line(srcname);
+    if(*(current_char) == '\0'){
+    	get_source_line(src_name);
+		current_char = src_name;
     }
-    ch++;
+	else{
+    	current_char++;
+	}
     /*
      Write some code to set the character ch to the next character in the buffer
      */
-     
-     
+     return *(current_char);
 }
-static char* skip_blanks(char* ch)
+static char* skip_blanks()
 {
     /*
      Write some code to skip past the blanks in the program and return a pointer
      to the first non blank character
      */
-    while(*(ch) == ' '){
-	++ch;
+    while(*(current_char) == ' '){
+		++current_char;
 	}
-    return ch;
+    return current_char;
 }
-static char* skip_comment(char* ch) //Acts only on a single line
+static char* skip_comment() //Acts only on a single line
 {
     /*
      Write some code to skip past the comments in the program and return a pointer
      to the first non blank character.  Watch out for the EOF character.
      */
-    ch = strchr(ch, '}');
-    if (*(ch+1) != '\n'){
-	
-	skipblanks(ch);
+	while(*(current_char) != '}'){
+		++current_char;
+	}
+    if (*(current_char+1) == ' '){
+		skip_blanks(++current_char);
     }
-    return ch;
+	else{
+		++current_char;
+    }
+    return current_char;
 }
 static char* get_word(char* ch)
 {
