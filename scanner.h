@@ -12,6 +12,8 @@
 
 #include "common.h"
 #include "print.h"
+#include <stdlib.h>
+#include <string.h>
 
 void init_scanner();
 Token* get_token();
