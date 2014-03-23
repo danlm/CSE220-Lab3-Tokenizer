@@ -63,7 +63,7 @@ FILE *init_lister(const char *name, char source_file_name[], char dte[])
     time_t timer;
     FILE *file;
     
-    strcpy(source_file_name, name);
+    memcpy(source_file_name, name, strlen(source_file_name));
     file = fopen(source_file_name, "r");
     time(&timer);
     strcpy(dte, asctime(localtime(&timer)));
